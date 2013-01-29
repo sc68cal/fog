@@ -87,23 +87,11 @@ module Fog
         end
 
         def private_ip_address
-          if addresses['private']
-            #assume only a single private
-            return addresses['private'].first
-          elsif addresses['internet']
-            #assume no private IP means private cloud
-            return addresses['internet'].first
-          end
+          return addresses[addresses.keys.first].first
         end
 
         def public_ip_address
-          if addresses['public']
-            #assume last is either original or assigned from floating IPs
-            return addresses['public'].last
-          elsif addresses['internet']
-            #assume no public IP means private cloud
-            return addresses['internet'].first
-          end
+          return addresses[addresses.keys.first].last
         end
 
         def image_ref
